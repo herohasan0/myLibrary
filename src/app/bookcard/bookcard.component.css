@@ -1,0 +1,34 @@
+.book-cover {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 228px;
+  padding-right: 14px;
+  padding-left: 14px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 23px;
+  cursor: pointer;
+}
+
+.book-cover:hover {
+  background-color: #e5e5e5;
+}
+
+.cover-img {
+  border-radius: 33px;
+  /* height: 313px; */
+  /* width: 100%; */
+  width: 100%;
+  height: 100%;
+}
+
+.book-author {
+  color: #8a8a8a;
+  font-size: 15px;
+}
+
+.book-card {
+  margin-left: 15px;
+  padding-right: 15px;
+}

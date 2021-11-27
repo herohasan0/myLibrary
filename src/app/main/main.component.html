@@ -1,0 +1,28 @@
+<div class="app">
+  <div class="left">
+    <div class="top-bar">
+      <button *ngIf="isLogged" class="login-button">
+        <a routerLink="{{ URL }}">My Library</a>
+      </button>
+      <app-search (getInput)="getData($event)"></app-search>
+
+      <button routerLink="/login" *ngIf="!isLogged" class="login-button">
+        <!-- <img class="login" src="/assets/login.png" alt="" /> -->
+        <mat-icon class="icon" aria-hidden="false" aria-label="login icon"
+          >account_circle</mat-icon
+        >
+      </button>
+
+      <button (click)="logout()" *ngIf="isLogged" class="login-button">
+        <!-- <img class="login" src="/assets/logout.png" alt="" /> -->
+        <mat-icon class="icon" aria-hidden="false" aria-label="logout icon"
+          >logout</mat-icon
+        >
+      </button>
+    </div>
+
+    <app-list (selectedBook)="logSelectedBook($event)" [list]="list"></app-list>
+  </div>
+
+  <app-side [selectedBook]="boookSelected"></app-side>
+</div>

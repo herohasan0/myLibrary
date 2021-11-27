@@ -1,0 +1,19 @@
+<div *ngIf="selectedBook" class="side-bar">
+  <h3 class="lighter title">About the book</h3>
+  <img class="cover" src="{{ path }}" alt="" />
+  <h4 class="book-title">{{ selectedBook.title }}</h4>
+  <h5 class="book-author">{{ selectedBook.authors[0] }}</h5>
+  <p class="book-desc">
+    {{ selectedBook.description }}
+  </p>
+
+  <button
+    *ngIf="userID"
+    disabled="{{ loading }}"
+    mat-stroked-button
+    (click)="addBook()"
+  >
+    <mat-spinner *ngIf="loading" class="spinner"></mat-spinner>
+    add to library
+  </button>
+</div>

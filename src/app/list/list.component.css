@@ -1,0 +1,12 @@
+.list-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 90px;
+  align-items: center;
+  justify-content: center;
+}
+
+.book-card {
+  margin-left: 15px;
+  padding-right: 15px;
+}
