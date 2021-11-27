@@ -1,10 +1,4 @@
-<!-- <div (click)="logger()" class="book-cover">
-  <img src="{{ path }}" class="cover-img" alt="" />
-  <h2 class="book-title">{{ book.title }}</h2>
-  <h3 *ngIf="book.authors" class="book-author">{{ book.authors[0] }}</h3>
-</div> -->
-
-<mat-card (click)="logger()">
+<mat-card (click)="showDetails()">
   <mat-spinner *ngIf="!book"></mat-spinner>
   <mat-card-title-group class="book-cover">
     <mat-card-title>{{ book.title }}</mat-card-title>
@@ -15,10 +9,3 @@
   </mat-card-title-group>
   <mat-card-content></mat-card-content>
 </mat-card>
-
-<!-- <mat-card-content>
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis provident,
-  harum distinctio molestiae est incidunt quae corporis nesciunt ut sapiente
-  vel rem nihil recusandae, accusamus tenetur exercitationem, quibusdam ab
-  tempora!
-</mat-card-content> -->

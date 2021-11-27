@@ -15,7 +15,7 @@ export class BookcardComponent implements OnInit {
 
   @Output() selectedBook = new EventEmitter<any>();
 
-  logger() {
+  showDetails() {
     this.selectedBook.emit(this.book);
   }
 
