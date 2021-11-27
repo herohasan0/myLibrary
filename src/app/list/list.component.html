@@ -1,7 +1,7 @@
 <div class="list-container">
   <app-bookcard
     class="book-card"
-    (selectedBook)="loggerBook($event)"
+    (selectedBook)="selectBook($event)"
     *ngFor="let e of list"
     [book]="e.volumeInfo"
   ></app-bookcard>
