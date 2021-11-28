@@ -1,5 +1,13 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
+interface Book {
+  title: string;
+  imageLinks: {
+    smallThumbnail: string;
+  };
+  authors: string[];
+}
+
 @Component({
   selector: 'app-bookcard',
   templateUrl: './bookcard.component.html',
@@ -8,7 +16,11 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class BookcardComponent implements OnInit {
   constructor() {}
 
-  @Input() book: any = '';
+  @Input() book: Book = {
+    title: '',
+    imageLinks: { smallThumbnail: '' },
+    authors: [''],
+  };
 
   path: string =
     'https://ravenspacepublishing.org/wp-content/uploads/2019/04/default-book.jpg';
