@@ -1,0 +1,56 @@
+<div class="userform">
+  <h2>{{ type }}</h2>
+  <mat-form-field appearance="fill">
+    <mat-label>Enter your email</mat-label>
+    <div [formGroup]="userForm">
+      <input
+        matInput
+        #email
+        formControlName="email"
+        placeholder="pat@example.com"
+      />
+    </div>
+    <mat-error>
+      {{ emailError() }}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Enter your password</mat-label>
+    <div [formGroup]="userForm">
+      <input
+        [type]="hide ? 'password' : 'text'"
+        matInput
+        #password
+        placeholder="password"
+        formControlName="password"
+      />
+    </div>
+    <button
+      mat-icon-button
+      matSuffix
+      (click)="hide = !hide"
+      [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="hide"
+    >
+      <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+    </button>
+    <mat-error *ngIf="userPassword?.errors?.['required']">{{
+      passwordError()
+    }}</mat-error>
+  </mat-form-field>
+
+  <button
+    (click)="func(email.value, password.value)"
+    mat-raised-button
+    color="primary"
+    *ngIf="!userPassword?.invalid && !userEmail?.invalid"
+  >
+    {{ type }}
+  </button>
+
+  <p *ngIf="route === 'register'">
+    Don't have an account ? You can register
+    <a routerLink="/{{ route }}"> here </a>
+  </p>
+</div>
