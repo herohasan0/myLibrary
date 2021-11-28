@@ -5,6 +5,11 @@ import { Router } from '@angular/router';
 
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
+import {
+  AngularFirestore,
+  AngularFirestoreDocument,
+} from '@angular/fire/compat/firestore';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -12,7 +17,8 @@ export class LibraryService {
   constructor(
     private http: HttpClient,
     public router: Router,
-    public afAuth: AngularFireAuth
+    public afAuth: AngularFireAuth,
+    private firestore: AngularFirestore
   ) {}
 
   list: [{ volumeInfo: any }] = [{ volumeInfo: {} }];
@@ -48,6 +54,21 @@ export class LibraryService {
         password
       );
       this.uid = result.user?.uid;
+      this.router.navigate([`user/${this.uid}`]);
+    } catch (err: any) {
+      console.log(err.message);
+    }
+  }
+
+  async SignUp(email: string, password: string) {
+    try {
+      const result = await this.afAuth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
+      this.uid = result.user?.uid;
+      console.log('result.user', result.user && result.user.uid);
+      this.firestore.collection(this.uid).add({});
       this.router.navigate([`user/${this.uid}`]);
     } catch (err: any) {
       console.log(err.message);
