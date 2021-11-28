@@ -24,6 +24,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialExampleModule } from './material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
+import { UserformComponent } from './userform/userform.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     RegisterComponent,
     MainComponent,
     MylibraryComponent,
+    UserformComponent,
   ],
   imports: [
     BrowserModule,
