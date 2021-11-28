@@ -1,13 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import {
-  AngularFirestore,
-  AngularFirestoreDocument,
-} from '@angular/fire/compat/firestore';
-
-import { Router } from '@angular/router';
+import { LibraryService } from '../library.service';
 
 @Component({
   selector: 'app-login',
@@ -15,59 +9,42 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+  constructor(private libraryService: LibraryService) {}
   hide = true;
-  constructor(
-    public afs: AngularFirestore,
-    public afAuth: AngularFireAuth, // Inject Firebase auth service
-    public router: Router
-  ) {}
 
-  uid: any = '';
-
-  SignIn(email: string, password: string) {
-    return this.afAuth
-      .signInWithEmailAndPassword(email, password)
-      .then((result) => {
-        this.uid = result.user?.uid;
-        this.router.navigate([`user/${this.uid}`]);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+  SignIn(username: string, password: string) {
+    this.libraryService.SignIn(username, password);
   }
 
-  logger(username: string, password: string) {
-    console.log('username', username, 'password', password);
+  userForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(4),
+    ]),
+  });
+
+  get userEmail() {
+    return this.userForm.get('email');
   }
 
-  //////////
+  get userPassword() {
+    return this.userForm.get('password');
+  }
 
-  email = new FormControl('', [Validators.required, Validators.email]);
-
-  password = new FormControl('', [
-    Validators.required,
-    Validators.minLength(10),
-  ]);
-
-  getErrorMessage() {
-    if (this.email.hasError('required')) {
-      return 'You must enter a value';
+  emailError() {
+    if (this.userEmail?.hasError('email')) {
+      return 'You should enter a valid email.';
     }
-
-    return this.email.hasError('email') ? 'Not a valid email' : '';
+    return 'Email is required.';
   }
 
-  getErrorMessageForPass() {
-    if (this.password.hasError('required')) {
-      return 'You must enter a value';
+  passwordError() {
+    if (this.userPassword?.hasError('minlength')) {
+      return 'Password must be at least 4 characters long.';
     }
-    if (this.password.hasError('minLength')) {
-      return 'You must enter ten character at least';
-    }
-    return this.password.hasError('password') ? 'Deneem' : 'Hasan';
+    return 'Password is required.';
   }
-
-  //////////
 
   ngOnInit(): void {}
 }

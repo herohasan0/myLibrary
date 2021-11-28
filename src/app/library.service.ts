@@ -5,8 +5,6 @@ import { Router } from '@angular/router';
 
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
-import { MatSnackBar } from '@angular/material/snack-bar';
-
 @Injectable({
   providedIn: 'root',
 })
@@ -14,8 +12,7 @@ export class LibraryService {
   constructor(
     private http: HttpClient,
     public router: Router,
-    public afAuth: AngularFireAuth,
-    private _snackBar: MatSnackBar
+    public afAuth: AngularFireAuth
   ) {}
 
   list: [{ volumeInfo: any }] = [{ volumeInfo: {} }];
@@ -40,5 +37,20 @@ export class LibraryService {
     this.afAuth.signOut().then(() => {
       this.router.navigate(['/login']);
     });
+  }
+
+  uid: any = '';
+
+  async SignIn(email: string, password: string) {
+    try {
+      const result = await this.afAuth.signInWithEmailAndPassword(
+        email,
+        password
+      );
+      this.uid = result.user?.uid;
+      this.router.navigate([`user/${this.uid}`]);
+    } catch (err: any) {
+      console.log(err.message);
+    }
   }
 }

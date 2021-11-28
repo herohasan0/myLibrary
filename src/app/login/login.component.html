@@ -1,28 +1,30 @@
 <div class="login-container">
   <mat-form-field appearance="fill">
     <mat-label>Enter your email</mat-label>
-    <input
-      matInput
-      placeholder="pat@example.com"
-      [formControl]="email"
-      required
-      type="text"
-      id="username"
-      #username
-    />
-    <mat-error *ngIf="email.invalid">{{ getErrorMessage() }}</mat-error>
+    <div [formGroup]="userForm">
+      <input
+        matInput
+        #email
+        formControlName="email"
+        placeholder="pat@example.com"
+      />
+    </div>
+    <mat-error>
+      {{ emailError() }}
+    </mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="fill">
     <mat-label>Enter your password</mat-label>
-    <input
-      matInput
-      [type]="hide ? 'password' : 'text'"
-      placeholder="password"
-      required
-      id="password"
-      #password
-    />
+    <div [formGroup]="userForm">
+      <input
+        [type]="hide ? 'password' : 'text'"
+        matInput
+        #password
+        placeholder="password"
+        formControlName="password"
+      />
+    </div>
     <button
       mat-icon-button
       matSuffix
@@ -32,15 +34,16 @@
     >
       <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
     </button>
-    <mat-error *ngIf="password.oninvalid">{{
-      getErrorMessageForPass()
+    <mat-error *ngIf="userPassword?.errors?.['required']">{{
+      passwordError()
     }}</mat-error>
   </mat-form-field>
 
   <button
-    (click)="SignIn(username.value, password.value)"
+    (click)="SignIn(email.value, password.value)"
     mat-raised-button
     color="primary"
+    *ngIf="!userPassword?.invalid && !userEmail?.invalid"
   >
     Login
   </button>
